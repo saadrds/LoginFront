@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from './user';
 @Injectable({
@@ -10,8 +10,9 @@ export class LoginserviceService {
 
   constructor(private http:HttpClient) { }
 
-  public getAgentClients(id : string) : Observable<User[]>{
-    return this.http.get<User[]>(this.host + "/getAgentClients?id="+id);
+  public getUser() : Observable<User>{
+    var tokenHeader = new HttpHeaders({'Authorization' : 'Bearer '+localStorage.getItem("token")});
+    return this.http.get<User>(this.host + "/Login",{headers : tokenHeader});
   }
 
   public postAgent(agent : any) : Observable<any>{

@@ -21,9 +21,10 @@ export class LoginComponent implements OnInit {
 
   onLogin(loginxform: NgForm){
     let a = this.loginservice.postAgent(loginxform.value).subscribe(
-     
+      (response)=>{console.log("dd1",response);},
       (err : HttpErrorResponse) => {
-        console.log (err);
+        console.log (err)
+        console.log(err.status + " ddd")
         if(err.status == 200){
           console.log("user founded");
           this.token = err.error.text;
